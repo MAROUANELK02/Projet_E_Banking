@@ -48,7 +48,7 @@ public class BankAccountServiceImpl implements  BankAccountService{
 
     @Override
     public Page<CustomerDTO> pageCustomers(String keyword, int page, int size) {
-        Page<Customer> customers = customerRepository.findByFirstNameOrLastNameContains(keyword,
+        Page<Customer> customers = customerRepository.findByFirstNameContainingOrLastNameContaining(keyword,keyword,
                 PageRequest.of(page,size,Sort.by(Sort.Direction.DESC,"id")));
         return customers.map(customer -> dtoMapper.fromCustomer(customer));
     }
@@ -188,13 +188,13 @@ public class BankAccountServiceImpl implements  BankAccountService{
         SavingAccount savingAccount = new SavingAccount();
         String randomString = String.valueOf((long) (Math.random() * 9_000_000_000_000_000L) + 1_000_000_000_000_000L);
         if(customer.getVille().equals(Ville.CASABLANCA)) {
-            savingAccount.setId("050"+"780"+randomString);
+            savingAccount.setId("123"+"780"+randomString);
         } else if (customer.getVille().equals(Ville.RABAT)) {
-            savingAccount.setId("050"+"785"+randomString);
+            savingAccount.setId("123"+"785"+randomString);
         } else if (customer.getVille().equals(Ville.TANGER)) {
-            savingAccount.setId("050"+"790"+randomString);
+            savingAccount.setId("123"+"790"+randomString);
         } else if (customer.getVille().equals(Ville.MARRAKECH)) {
-            savingAccount.setId("050"+"795"+randomString);
+            savingAccount.setId("123"+"795"+randomString);
         }
         savingAccount.setCreatedAt(new Date());
         savingAccount.setStatus(AccountStatus.ACTIVATED);

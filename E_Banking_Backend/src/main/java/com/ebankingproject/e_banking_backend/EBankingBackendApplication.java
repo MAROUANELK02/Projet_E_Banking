@@ -25,7 +25,7 @@ public class EBankingBackendApplication {
 		SpringApplication.run(EBankingBackendApplication.class, args);
 	}
 
-	@Bean
+	//@Bean
 	CommandLineRunner commandLineRunner(BankAccountService bankAccountService) {
 		return args -> {
 
