@@ -3,6 +3,7 @@ package com.ebankingproject.e_banking_backend.entities;
 import com.ebankingproject.e_banking_backend.enums.OperationType;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -23,7 +24,7 @@ public class AccountOperation {
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     private Date operationDate;
 
-    @NotEmpty
+    @NotNull
     private double amount;
 
     @Enumerated(EnumType.STRING)

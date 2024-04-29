@@ -3,6 +3,7 @@ package com.ebankingproject.e_banking_backend.entities;
 import com.ebankingproject.e_banking_backend.enums.Ville;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 import lombok.*;
@@ -19,18 +20,18 @@ public class Customer {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotEmpty
+    @NotBlank
     @Size(min = 3,max = 50)
     private String firstName;
 
-    @NotEmpty
+    @NotBlank
     @Size(min = 3,max = 50)
     private String lastName;
 
     @Email
     private String email;
 
-    @NotEmpty
+    @NotBlank
     private String cin;
 
     @Enumerated(EnumType.STRING)

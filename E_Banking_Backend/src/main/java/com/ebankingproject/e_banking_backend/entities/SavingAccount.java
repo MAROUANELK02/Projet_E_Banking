@@ -3,6 +3,7 @@ package com.ebankingproject.e_banking_backend.entities;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 @Entity
@@ -12,6 +13,6 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class SavingAccount extends BankAccount{
-    @NotEmpty
+    @NotNull
     private double interestRate;
 }
