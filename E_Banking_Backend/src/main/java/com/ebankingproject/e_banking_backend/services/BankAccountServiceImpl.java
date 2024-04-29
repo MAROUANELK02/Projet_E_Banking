@@ -267,13 +267,13 @@ public class BankAccountServiceImpl implements  BankAccountService{
     public void transaction(String accountIdSource, String accountIdDestination, double amount) throws BankAccountNotFoundException, CustomerNotFoundException {
         if(amount >= 100) {
             debit(accountIdSource, amount, "Virement envoyé à " +
-                    getCustomer(getBankAccount(accountIdDestination).getCustomerDTO().getId()).getLastName()
+                    getCustomer(getBankAccount(accountIdDestination).getCustomerDTO().getId()).getFirstName()
                     + " " +
-                    getCustomer(getBankAccount(accountIdDestination).getCustomerDTO().getId()).getFirstName());
+                    getCustomer(getBankAccount(accountIdDestination).getCustomerDTO().getId()).getLastName());
             credit(accountIdDestination, amount, "Virement reçu de " +
-                    getCustomer(getBankAccount(accountIdSource).getCustomerDTO().getId()).getLastName()
+                    getCustomer(getBankAccount(accountIdSource).getCustomerDTO().getId()).getFirstName()
                     + " " +
-                    getCustomer(getBankAccount(accountIdSource).getCustomerDTO().getId()).getFirstName());
+                    getCustomer(getBankAccount(accountIdSource).getCustomerDTO().getId()).getLastName());
         }else{
             throw new RuntimeException("Le montant doit être supérieur ou égal à 100DHS !");
         }
