@@ -3,6 +3,7 @@ package com.ebankingproject.e_banking_backend.web;
 import com.ebankingproject.e_banking_backend.dtos.*;
 import com.ebankingproject.e_banking_backend.exceptions.*;
 import com.ebankingproject.e_banking_backend.services.BankAccountService;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 //import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.data.domain.Page;
@@ -53,14 +54,14 @@ public class BankAccountRestController {
 
     @PostMapping("/create/currentAccount/{customerId}")
     //@PreAuthorize("hasRole('MODERATOR') or hasRole('ADMIN')")
-    public BankAccountDTO saveCurrentAccount(@RequestBody CurrentBankAccountDTO currentBankAccountDTO,
+    public BankAccountDTO saveCurrentAccount(@RequestBody @Valid CurrentBankAccountDTO currentBankAccountDTO,
                                              @PathVariable(name = "customerId")Long customerId) throws CustomerNotFoundException, hasAlreadyCurrentAccount {
         return bankAccountService.saveCurrentBankAccount(currentBankAccountDTO.getOverDraft(),customerId);
     }
 
     @PostMapping("/create/savingAccount/{id}")
     //@PreAuthorize("hasRole('MODERATOR') or hasRole('ADMIN')")
-    public BankAccountDTO saveSavingAccount(@RequestBody SavingBankAccountDTO savingBankAccountDTO,
+    public BankAccountDTO saveSavingAccount(@RequestBody @Valid SavingBankAccountDTO savingBankAccountDTO,
                                             @PathVariable(name = "id")Long customerId) throws CustomerNotFoundException, hasAlreadySavingAccount {
         return bankAccountService.saveSavingBankAccount(savingBankAccountDTO.getInterestRate(),customerId);
     }
@@ -85,14 +86,14 @@ public class BankAccountRestController {
 
     @PostMapping("/debit")
     //@PreAuthorize("hasRole('MODERATOR') or hasRole('ADMIN')")
-    public DebitDTO debit(@RequestBody DebitDTO debitDTO) throws BankAccountNotFoundException {
+    public DebitDTO debit(@RequestBody @Valid DebitDTO debitDTO) throws BankAccountNotFoundException {
             this.bankAccountService.debit(debitDTO.getAccountId(),debitDTO.getAmount(),"Retrait du compte");
             return debitDTO;
     }
 
     @PostMapping("/credit")
     //@PreAuthorize("hasRole('MODERATOR') or hasRole('ADMIN')")
-    public CreditDTO credit(@RequestBody CreditDTO creditDTO) throws BankAccountNotFoundException {
+    public CreditDTO credit(@RequestBody @Valid CreditDTO creditDTO) throws BankAccountNotFoundException {
         this.bankAccountService.credit(creditDTO.getAccountId(),creditDTO.getAmount(),"Versement sur compte");
         return creditDTO;
     }

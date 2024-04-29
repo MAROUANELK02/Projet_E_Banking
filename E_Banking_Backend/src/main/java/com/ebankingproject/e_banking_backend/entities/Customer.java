@@ -32,6 +32,7 @@ public class Customer {
     private String email;
 
     @NotBlank
+    @Column(unique = true)
     private String cin;
 
     @Enumerated(EnumType.STRING)

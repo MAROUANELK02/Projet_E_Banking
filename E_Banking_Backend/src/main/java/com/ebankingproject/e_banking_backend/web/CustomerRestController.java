@@ -3,6 +3,7 @@ package com.ebankingproject.e_banking_backend.web;
 import com.ebankingproject.e_banking_backend.dtos.CustomerDTO;
 import com.ebankingproject.e_banking_backend.exceptions.CustomerNotFoundException;
 import com.ebankingproject.e_banking_backend.services.BankAccountService;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 //import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.data.domain.Page;
@@ -45,13 +46,13 @@ public class CustomerRestController {
 
     @PostMapping("/")
     //@PreAuthorize("hasRole('MODERATOR') or hasRole('ADMIN')")
-    public CustomerDTO saveCustomer(@RequestBody CustomerDTO customerDTO) {
+    public CustomerDTO saveCustomer(@RequestBody @Valid CustomerDTO customerDTO) {
         return bankAccountService.saveCustomer(customerDTO);
     }
 
     @PutMapping("/{customerId}")
     //@PreAuthorize("hasRole('MODERATOR') or hasRole('ADMIN')")
-    public CustomerDTO updateCustomer(@PathVariable(name = "customerId")Long customerId,@RequestBody CustomerDTO customerDTO) throws CustomerNotFoundException {
+    public CustomerDTO updateCustomer(@PathVariable(name = "customerId")Long customerId,@RequestBody @Valid CustomerDTO customerDTO) throws CustomerNotFoundException {
         customerDTO.setId(customerId);
         return bankAccountService.updateCustomer(customerDTO);
     }
