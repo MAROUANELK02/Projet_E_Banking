@@ -6,6 +6,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface CustomerRepository extends JpaRepository<Customer,Long> {
-    Page<Customer> findByNameContains(String kw,Pageable pageable);
+    Page<Customer> findByFirstNameOrLastNameContains(String kw,Pageable pageable);
 //    Customer findByUserId(Long userId);
 }

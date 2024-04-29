@@ -48,7 +48,7 @@ public class BankAccountServiceImpl implements  BankAccountService{
 
     @Override
     public Page<CustomerDTO> pageCustomers(String keyword, int page, int size) {
-        Page<Customer> customers = customerRepository.findByNameContains(keyword,
+        Page<Customer> customers = customerRepository.findByFirstNameOrLastNameContains(keyword,
                 PageRequest.of(page,size,Sort.by(Sort.Direction.DESC,"id")));
         return customers.map(customer -> dtoMapper.fromCustomer(customer));
     }
