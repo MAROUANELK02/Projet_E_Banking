@@ -6,7 +6,6 @@ import com.ebankingproject.e_banking_backend.security.models.User;
 import com.ebankingproject.e_banking_backend.security.models.UserDTO;
 import org.springframework.data.domain.Page;
 
-
 public interface AccountService {
     User addNewUser(User user);
     void addNewRole(Role role);
