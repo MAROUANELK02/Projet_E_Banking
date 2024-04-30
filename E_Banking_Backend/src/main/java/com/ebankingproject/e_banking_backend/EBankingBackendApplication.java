@@ -6,11 +6,16 @@ import com.ebankingproject.e_banking_backend.enums.Ville;
 import com.ebankingproject.e_banking_backend.exceptions.CustomerNotFoundException;
 import com.ebankingproject.e_banking_backend.exceptions.hasAlreadyCurrentAccount;
 import com.ebankingproject.e_banking_backend.exceptions.hasAlreadySavingAccount;
+import com.ebankingproject.e_banking_backend.security.models.ERole;
+import com.ebankingproject.e_banking_backend.security.models.Role;
+import com.ebankingproject.e_banking_backend.security.models.User;
+import com.ebankingproject.e_banking_backend.security.services.AccountService;
 import com.ebankingproject.e_banking_backend.services.BankAccountService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.text.DecimalFormat;
 import java.util.List;
@@ -26,8 +31,15 @@ public class EBankingBackendApplication {
 	}
 
 	//@Bean
-	CommandLineRunner commandLineRunner(BankAccountService bankAccountService) {
+	CommandLineRunner commandLineRunner(BankAccountService bankAccountService, AccountService accountService, PasswordEncoder passwordEncoder) {
 		return args -> {
+
+			accountService.addNewRole(new Role(ERole.ROLE_ADMIN));
+			accountService.addNewRole(new Role(ERole.ROLE_MODERATOR));
+			accountService.addNewRole(new Role(ERole.ROLE_USER));
+			String pw = passwordEncoder.encode("admin@123456789");
+			accountService.addNewUser(new User("admin","admin@gamil.com",pw));
+			accountService.addRoleToUser("admin",ERole.ROLE_ADMIN);
 
 			//customers with bank account
 			Stream.of("Hassan","Imane","Mohamed","Ali","Hanane","Nouhaila","Adib","Mouhcine","Farid")

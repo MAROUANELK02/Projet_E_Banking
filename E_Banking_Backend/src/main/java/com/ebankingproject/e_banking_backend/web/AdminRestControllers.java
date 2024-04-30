@@ -1,12 +1,11 @@
-/*
 package com.ebankingproject.e_banking_backend.web;
 
-//import com.ebankingproject.e_banking_backend.security.models.User;
-//import com.ebankingproject.e_banking_backend.security.models.UserDTO;
-//import com.ebankingproject.e_banking_backend.security.services.AccountServiceImpl;
+import com.ebankingproject.e_banking_backend.security.models.User;
+import com.ebankingproject.e_banking_backend.security.models.UserDTO;
+import com.ebankingproject.e_banking_backend.security.services.AccountService;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.data.domain.Page;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,8 +15,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/moderator")
 public class AdminRestControllers {
-    @Autowired
-    private AccountServiceImpl accountService;
+    private AccountService accountService;
 
     @PostMapping("/")
     @PreAuthorize("hasRole('ADMIN')")
@@ -27,15 +25,9 @@ public class AdminRestControllers {
 
     @GetMapping("/")
     @PreAuthorize("hasRole('ADMIN')")
-    public List<UserDTO> getModerators(@RequestParam(name = "page",defaultValue = "0") int page,
-                                    @RequestParam(name = "size",defaultValue = "6") int size) {
+    public Page<UserDTO> getModerators(@RequestParam(name = "page",defaultValue = "0") int page,
+                                       @RequestParam(name = "size",defaultValue = "6") int size) {
         return accountService.findModerators(page,size);
-    }
-
-    @GetMapping("/totalPages")
-    @PreAuthorize("hasRole('ADMIN')")
-    public int getTotalPages(@RequestParam(name = "size",defaultValue = "6") int size) {
-        return accountService.getTotalPages(size);
     }
 
     @DeleteMapping("/{id}")
@@ -44,4 +36,3 @@ public class AdminRestControllers {
         accountService.deleteModUser(userId);
     }
 }
-*/

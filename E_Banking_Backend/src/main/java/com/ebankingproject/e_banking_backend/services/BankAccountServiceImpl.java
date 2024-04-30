@@ -6,9 +6,9 @@ import com.ebankingproject.e_banking_backend.enums.*;
 import com.ebankingproject.e_banking_backend.exceptions.*;
 import com.ebankingproject.e_banking_backend.mappers.BankAccountMapperImpl;
 import com.ebankingproject.e_banking_backend.repositories.*;
-//import com.ebankingproject.e_banking_backend.security.models.ERole;
-//import com.ebankingproject.e_banking_backend.security.models.User;
-//import com.ebankingproject.e_banking_backend.security.services.AccountService;
+import com.ebankingproject.e_banking_backend.security.models.ERole;
+import com.ebankingproject.e_banking_backend.security.models.User;
+import com.ebankingproject.e_banking_backend.security.services.AccountService;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,11 +16,12 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-//import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -35,8 +36,8 @@ public class BankAccountServiceImpl implements  BankAccountService{
     private CurrentBankAccountRepository currentBankAccountRepository;
     private SavingBankAccountRepository savingBankAccountRepository;
     private BankAccountMapperImpl dtoMapper;
-//    private AccountService accountService;
-//    private PasswordEncoder passwordEncoder;
+    private AccountService accountService;
+    private PasswordEncoder passwordEncoder;
 
     //Customers Transactions
 
@@ -59,21 +60,20 @@ public class BankAccountServiceImpl implements  BankAccountService{
                 .orElseThrow(()->new CustomerNotFoundException("Customer not found")));
     }
 
-    /*@Override
+    @Override
     public CustomerDTO getCustomerByUserId(Long id) {
         return dtoMapper.fromCustomer(customerRepository.findByUserId(id));
-        return null;
-    }*/
+    }
 
     @Override
     public CustomerDTO saveCustomer(CustomerDTO customerDTO) {
         log.info("Saving new Customer");
-//        String pw = passwordEncoder.encode(UUID.randomUUID().toString());
-//        User user = accountService.addNewUser(new User(customerDTO.getName(),customerDTO.getEmail(),pw));
-//        accountService.addRoleToUser(user.getUsername(), ERole.ROLE_USER);
+        String pw = passwordEncoder.encode(UUID.randomUUID().toString());
+        User user = accountService.addNewUser(new User(customerDTO.getFirstName()+"_"+customerDTO.getLastName(),customerDTO.getEmail(),pw));
+        accountService.addRoleToUser(user.getUsername(), ERole.ROLE_USER);
         Customer customer = dtoMapper.fromCustomerDTO(customerDTO);
-//        customer.setUser(user);
-//        user.setCustomer(customer);
+        customer.setUser(user);
+        user.setCustomer(customer);
         Customer savedCustomer = customerRepository.save(customer);
         return dtoMapper.fromCustomer(savedCustomer);
     }
@@ -81,8 +81,9 @@ public class BankAccountServiceImpl implements  BankAccountService{
     @Override
     public CustomerDTO updateCustomer(CustomerDTO customerDTO) throws CustomerNotFoundException {
         Customer customer = customerRepository.findById(customerDTO.getId()).orElseThrow(()->new CustomerNotFoundException("Customer not found"));
-        //accountService.updateUser(customer.getId(),customerDTO.getName(),customerDTO.getEmail());
-        //customer.setName(customerDTO.getName());
+        accountService.updateUser(customer.getId(),customerDTO.getFirstName()+"_"+customerDTO.getLastName(),customerDTO.getEmail());
+        customer.setFirstName(customerDTO.getFirstName());
+        customer.setLastName(customerDTO.getLastName());
         customer.setEmail(customerDTO.getEmail());
         customer.setCin(customerDTO.getCin());
         customer.setVille(customerDTO.getVille());
@@ -92,7 +93,7 @@ public class BankAccountServiceImpl implements  BankAccountService{
 
     @Override
     public void deleteCustomer(Long customerId) {
-        //accountService.deleteUserByCustomerId(customerId);
+        accountService.deleteUserByCustomerId(customerId);
         customerRepository.deleteById(customerId);
     }
 

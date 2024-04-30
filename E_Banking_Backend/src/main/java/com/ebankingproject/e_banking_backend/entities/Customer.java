@@ -1,6 +1,7 @@
 package com.ebankingproject.e_banking_backend.entities;
 
 import com.ebankingproject.e_banking_backend.enums.Ville;
+import com.ebankingproject.e_banking_backend.security.models.User;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -47,6 +48,6 @@ public class Customer {
     @Value("${hasSavingAccount:false}")
     private boolean hasSavingAccount;
 
-//    @OneToOne(fetch = FetchType.LAZY)
-//    private User user;
+    @OneToOne(fetch = FetchType.LAZY)
+    private User user;
 }

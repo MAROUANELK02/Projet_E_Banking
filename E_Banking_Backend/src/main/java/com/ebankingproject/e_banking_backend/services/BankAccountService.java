@@ -13,7 +13,7 @@ public interface BankAccountService {
     List<CustomerDTO> listCustomer();
     Page<CustomerDTO> pageCustomers(String keyword, int page, int size);
     CustomerDTO getCustomer(Long id) throws CustomerNotFoundException;
-    //CustomerDTO getCustomerByUserId(Long userId);
+    CustomerDTO getCustomerByUserId(Long userId);
     CustomerDTO saveCustomer(CustomerDTO customerDTO);
     CustomerDTO updateCustomer(CustomerDTO customerDTO) throws CustomerNotFoundException;
     void deleteCustomer(Long customerId);
