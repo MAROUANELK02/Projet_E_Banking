@@ -1,0 +1,44 @@
+import { Injectable } from '@angular/core';
+import {HttpClient} from "@angular/common/http";
+import {AppStateService} from "./app-state.service";
+import {ApiResponse} from "../models/api-response.model";
+import {Operation} from "../models/operation.model";
+
+@Injectable({
+  providedIn: 'root'
+})
+export class OperationsRepositoryService {
+  host : string = "http://localhost:5000/api/operations/"
+
+  constructor(private http : HttpClient,
+              private appState : AppStateService) { }
+
+  searchOperations({
+                    currentPage = this.appState.operationsState.currentPage,
+                    size = this.appState.operationsState.pageSize
+                  }){
+    this.appState.operationsState.status = "loading";
+    this.http.get<ApiResponse<Operation>>(this.host , {
+      params : {
+        page : currentPage,
+        size : size
+      },
+    }).subscribe({
+      next : (resp : ApiResponse<Operation>)=>{
+        let operations = resp.content;
+        let totalPages = resp.totalPages;
+        this.appState.setOperationsState({
+          operations, totalPages, currentPage, status:"LOADED", errorMessage:""
+        })
+      },
+      error : (err)=>{
+        this.appState.setOperationsState({status:"ERROR", errorMessage:err.statusText});
+      }
+    });
+
+  }
+
+  ngOnInit(): void {
+    this.searchOperations({});
+  }
+}

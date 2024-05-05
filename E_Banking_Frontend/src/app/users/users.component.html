@@ -1,0 +1,70 @@
+<div class="p-3">
+  <div class="card">
+    <div class="card-body">
+      <div class="card">
+        <div class="card-body">
+          <div class="row g-2">
+            <div class="col-auto">
+              <input class="form-control" type="text" [(ngModel)]="query" />
+            </div>
+            <div class="col-auto">
+              <button (click)="handleSearch()" class="btn btn-outline-info">
+                <i class="bi bi-search"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th class='text-center'>N°</th>
+            <th class='text-center'>PRENOM</th>
+            <th class='text-center'>NOM</th>
+            <th class='text-center'>CIN</th>
+            <th class='text-center'>Email</th>
+            <th class='text-center'>VILLE</th>
+            <th class='text-center'>Ajouter un compte bancaire</th>
+            <th class='text-center' colSpan={2}>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let customer of appState.usersState.users">
+            <td class='text-center'>{{ customer.id }}</td>
+            <td class='text-center'>{{ customer.firstName }}</td>
+            <td class='text-center'>{{ customer.lastName }}</td>
+            <td class='text-center'>{{ customer.cin }}</td>
+            <td class='text-center'>{{ customer.email }}</td>
+            <td class='text-center'>{{ customer.ville }}</td>
+            <td class='text-center'>
+              <button mat-flat-button color="primary" (click)="handleAccount(customer.id)">
+                <mat-icon>add_circle</mat-icon>
+                Créer un compte
+              </button>
+            </td>
+            <td class='text-center'>
+              <button mat-flat-button color="accent" (click)="handleEdit(customer.id)">
+                <mat-icon>edit</mat-icon>
+                Modifier
+              </button>
+            </td>
+            <td class='text-center'>
+              <button mat-flat-button color="warn" (click)="handleDelete(customer.id)">
+                <mat-icon>delete</mat-icon>
+                Supprimer
+              </button>
+            </td>
+        </tbody>
+      </table>
+      <ul class="nav nav-pills">
+        <li *ngFor="let page of [].constructor(appState.usersState.totalPages); let index=index">
+          <button (click)="goToPage(index)"
+            [ngClass]="appState.usersState.currentPage===(index)?'btn btn-success m-1':'btn btn-outline-success m-1'"
+            class="">
+            {{index+1}}
+          </button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

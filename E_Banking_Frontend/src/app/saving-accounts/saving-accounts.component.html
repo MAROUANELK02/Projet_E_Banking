@@ -1,0 +1,58 @@
+<div class="p-3">
+  <div class="card">
+    <div class="card-body">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th class='text-center'>RIB</th>
+            <th class='text-center'>Solde</th>
+            <th class='text-center'>Taux d'intérêt</th>
+            <th class='text-center'>Titulaire</th>
+            <th class='text-center' colSpan={4}>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let account of appState.savingAccountsState.savingAccounts">
+            <td class='text-center'>{{ account.id }}</td>
+            <td class='text-center'>{{ account.balance }}</td>
+            <td class='text-center'>{{ account.interestRate }}</td>
+            <td class='text-center'>{{ account.customerDTO.firstName }} {{account.customerDTO.lastName}}</td>
+            <td class='text-center'>
+              <button *ngIf="account.status.includes('ACTIVATED')" mat-flat-button color="primary"
+                (click)="changeStatus(account.id)">
+                Suspendre
+              </button>
+              <button *ngIf="account.status.includes('SUSPENDED')" mat-flat-button color="primary"
+                (click)="changeStatus(account.id)">
+                Activer
+              </button>
+            </td>
+            <td class='text-center'>
+              <button mat-flat-button color="warn" (click)="closeAccount(account.id)">
+                Clôturer
+              </button>
+            </td>
+            <td class='text-center'>
+              <button mat-flat-button color="accent" (click)="debitAccount(account.id)">
+                Virement
+              </button>
+            </td>
+            <td class='text-center'>
+              <button mat-flat-button color="accent" (click)="creditAccount(account.id)">
+                Retrait
+              </button>
+            </td>
+        </tbody>
+      </table>
+      <ul class="nav nav-pills">
+        <li *ngFor="let page of [].constructor(appState.savingAccountsState.totalPages); let index=index">
+          <button (click)="goToPage(index)"
+            [ngClass]="appState.savingAccountsState.currentPage===(index)?'btn btn-success m-1':'btn btn-outline-success m-1'"
+            class="">
+            {{index+1}}
+          </button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

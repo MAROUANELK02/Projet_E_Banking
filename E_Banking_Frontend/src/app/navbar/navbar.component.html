@@ -1,0 +1,70 @@
+<nav class="navbar m-2 p-2">
+  <a routerLink="/login" class="navbar-brand">
+    E-banking
+  </a>
+  <ul class="nav nav-pills me-auto my-2 my-lg-0"
+    *ngIf="appState.authState.roles.includes('ROLE_ADMIN') || appState.authState.roles.includes('ROLE_MODERATOR')">
+    <li class="nav-item">
+      <button routerLink="/users" class="nav-link">
+        Clients
+      </button>
+    </li>
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+        aria-expanded="false">
+        Comptes
+      </a>
+      <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+        <li><a class="dropdown-item" routerLink="/accounts/currentAccounts">Comptes courants</a></li>
+        <li>
+          <hr class="dropdown-divider">
+        </li>
+        <li><a class="dropdown-item" routerLink="/accounts/savingAccounts">Comptes d'épargne</a></li>
+      </ul>
+    </li>
+    <li class="nav-item">
+      <a routerLink="/operations" class="nav-link">
+        Opérations
+      </a>
+    </li>
+    <li class="nav-item" *ngIf="appState.authState.roles.includes('ROLE_ADMIN')">
+      <a routerLink="/moderators" class="nav-link">
+        Caissiers
+      </a>
+    </li>
+  </ul>
+
+  <ul class="nav nav-pills me-auto my-2 my-lg-0" *ngIf="appState.authState.roles.includes('ROLE_USER')">
+    <li class="nav-item">
+      <a routerLink="/user/accounts" class="nav-link">
+        Mes comptes
+      </a>
+    </li>
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        Mes Opérations
+      </a>
+      <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+        <li><a class="dropdown-item" routerLink="/user/operations/currentAccount">Compte courant</a></li>
+        <li>
+          <hr class="dropdown-divider">
+        </li>
+        <li><a class="dropdown-item" routerLink="/user/operations/savingAccount">Compte d'épargne</a></li>
+      </ul>
+    </li>
+  </ul>
+  <ul class="nav nav-pills">
+    <li *ngIf="appState.authState.isAuthenticated">
+      <span class="p-1 m-1">{{appState.authState.username}}</span>
+      <button (click)="handleLogOut()" class="btn btn-outline-success">
+        <i class="bi bi-door-open-fill"></i>
+      </button>
+    </li>
+    <li *ngIf="!appState.authState.isAuthenticated">
+      <button (click)="handleLogin()" class="btn btn-outline-success">
+        <i class="bi bi-door-closed-fill"></i>
+      </button>
+    </li>
+  </ul>
+
+</nav>
