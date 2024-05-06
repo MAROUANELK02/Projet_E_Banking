@@ -15,6 +15,10 @@ import {MatIcon} from "@angular/material/icon";
 import {MatButton} from "@angular/material/button";
 import { SavingAccountsComponent } from './saving-accounts/saving-accounts.component';
 import { OperationsComponent } from './operations/operations.component';
+import {MatFormField, MatLabel} from "@angular/material/form-field";
+import {MatOption, MatSelect} from "@angular/material/select";
+import {MatDialogActions, MatDialogClose, MatDialogContent, MatDialogTitle} from "@angular/material/dialog";
+import {MatRadioButton, MatRadioGroup} from "@angular/material/radio";
 
 @NgModule({
   declarations: [
@@ -33,7 +37,15 @@ import { OperationsComponent } from './operations/operations.component';
     FormsModule,
     ReactiveFormsModule,
     MatIcon,
-    MatButton
+    MatButton,
+    MatLabel,
+    MatSelect,
+    MatOption,
+    MatFormField,
+    MatDialogTitle,
+    MatDialogContent,
+    MatRadioGroup,
+    MatRadioButton
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: HttpAppInterceptor, multi: true},

@@ -8,7 +8,7 @@ import {CurrentAccount} from "../models/current-account.model";
   providedIn: 'root'
 })
 export class CurrentAccountsRepositoryService implements OnInit{
-  host : string = "http://localhost:5000/api/accounts/current";
+  host : string = "http://localhost:5000/api/accounts/";
 
   constructor(private http : HttpClient, private appState : AppStateService) {
   }
@@ -18,7 +18,7 @@ export class CurrentAccountsRepositoryService implements OnInit{
                     size = this.appState.currentAccountsState.pageSize
                   }){
     this.appState.currentAccountsState.status = "loading";
-    this.http.get<ApiResponse<CurrentAccount>>(this.host , {
+    this.http.get<ApiResponse<CurrentAccount>>(this.host+"current" , {
       params : {
         page : currentPage,
         size : size
@@ -40,5 +40,18 @@ export class CurrentAccountsRepositoryService implements OnInit{
 
   ngOnInit(): void {
     this.searchCurrentAccounts({});
+  }
+
+  saveAccount(currentAccount : CurrentAccount, customerId : number) {
+    this.appState.currentAccountsState.status = "LOADING";
+    this.http.post<CurrentAccount>(this.host+"create/currentAccount/"+customerId, currentAccount).subscribe({
+      next : ()=>{
+        this.appState.setCurrentAccountsState({status:"SUCCESS", errorMessage:""});
+        this.searchCurrentAccounts({});
+      },
+      error : (err)=>{
+        this.appState.setCurrentAccountsState({status:"ERROR", errorMessage:err.statusText});
+      }
+    });
   }
 }

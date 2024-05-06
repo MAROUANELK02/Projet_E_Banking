@@ -43,4 +43,30 @@ export class CustomersRepositoryService implements OnInit{
   ngOnInit(): void {
     this.searchCustomers({});
   }
+
+  createCustomer(user : User) {
+    this.appState.usersState.status = "LOADING";
+    this.http.post<User>(this.host, user).subscribe({
+      next : ()=>{
+        this.appState.setUsersState({status:"SUCCESS", errorMessage:""});
+        this.searchCustomers({});
+      },
+      error : (err)=>{
+        this.appState.setUsersState({status:"ERROR", errorMessage:err.statusText});
+      }
+    });
+  }
+
+  updateCustomer(user: User) {
+    this.appState.usersState.status = "LOADING";
+    this.http.put<User>(this.host+user.id, user).subscribe({
+      next: () =>{
+      this.appState.setUsersState({status:"SUCCESS", errorMessage:""});
+      this.searchCustomers({});
+      },
+      error : (err)=>{
+        this.appState.setUsersState({status:"ERROR", errorMessage:err.statusText});
+      }
+    });
+  }
 }

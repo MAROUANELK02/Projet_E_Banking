@@ -9,7 +9,7 @@ import {SavingAccount} from "../models/saving-account.model";
 })
 export class SavingAccountsRepositoryService {
 
-  host : string = "http://localhost:5000/api/accounts/saving";
+  host : string = "http://localhost:5000/api/accounts/";
 
   constructor(private http : HttpClient, private appState : AppStateService) {
   }
@@ -19,7 +19,7 @@ export class SavingAccountsRepositoryService {
                           size = this.appState.savingAccountsState.pageSize
                         }){
     this.appState.savingAccountsState.status = "loading";
-    this.http.get<ApiResponse<SavingAccount>>(this.host , {
+    this.http.get<ApiResponse<SavingAccount>>(this.host+"saving" , {
       params : {
         page : currentPage,
         size : size
@@ -41,5 +41,18 @@ export class SavingAccountsRepositoryService {
 
   ngOnInit(): void {
     this.searchSavingAccounts({});
+  }
+
+  saveAccount(savingAccount: SavingAccount, customerId : number) {
+    this.appState.savingAccountsState.status = "LOADING";
+    this.http.post<SavingAccount>(this.host+"create/savingAccount/"+customerId, savingAccount).subscribe({
+      next : ()=>{
+        this.appState.setSavingAccountsState({status:"SUCCESS", errorMessage:""});
+        this.searchSavingAccounts({});
+      },
+      error : (err)=>{
+        this.appState.setSavingAccountsState({status:"ERROR", errorMessage:err.statusText});
+      }
+    });
   }
 }

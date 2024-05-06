@@ -53,6 +53,10 @@ export class AppStateService {
     errorMessage :""
   }
 
+  public getUserByUserId(userId : number){
+    return this.usersState.users.find((user:any)=>user.id===userId);
+  }
+
   public setOperationsState(state:any){
     this.operationsState={...this.operationsState, ...state};
   }
