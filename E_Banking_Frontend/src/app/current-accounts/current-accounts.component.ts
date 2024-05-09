@@ -98,6 +98,9 @@ export class CurrentAccountsComponent implements OnInit{
         this.searchCurrentAccounts();
       });
     }
+    this.form.patchValue({
+      amount : ""
+    });
   }
 
 }

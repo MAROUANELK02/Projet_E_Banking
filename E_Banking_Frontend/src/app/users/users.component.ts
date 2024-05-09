@@ -86,6 +86,7 @@ export class UsersComponent implements OnInit {
   }
 
   handleAddCustomer() {
+
     this.type = "add";
     this.openClose = true;
   }
@@ -93,7 +94,9 @@ export class UsersComponent implements OnInit {
   //ajouter ou modifier un customer
   handleCreate() {
     let user : User = new User();
-    user.id = this.customer.id;
+    if(this.type.includes('edit')) {
+      user.id = this.customer.id;
+    }
     user.firstName = this.form.value.firstName;
     user.lastName = this.form.value.lastName;
     user.email = this.form.value.email;
@@ -106,7 +109,7 @@ export class UsersComponent implements OnInit {
     }
     this.openClose = false;
     this.type = "";
-  }
+  };
 
   handleClose() {
     this.openClose = false;
