@@ -101,5 +101,6 @@ export class SavingAccountsComponent {
     this.form.patchValue({
       amount : ""
     });
+    this.closeModal();
   }
 }

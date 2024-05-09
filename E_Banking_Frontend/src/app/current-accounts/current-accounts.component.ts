@@ -101,6 +101,7 @@ export class CurrentAccountsComponent implements OnInit{
     this.form.patchValue({
       amount : ""
     });
+    this.closeModal();
   }
 
 }
