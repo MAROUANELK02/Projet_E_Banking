@@ -69,4 +69,18 @@ export class CustomersRepositoryService implements OnInit{
       }
     });
   }
+
+  deleteCustomer(id: number) {
+    this.appState.usersState.status = "LOADING";
+    this.http.delete(this.host+id).subscribe({
+      next: () =>{
+        this.appState.setUsersState({status:"SUCCESS", errorMessage:""});
+        this.searchCustomers({});
+      },
+      error : (err)=>{
+        this.appState.setUsersState({status:"ERROR", errorMessage:err.statusText});
+      }
+    });
+  }
+
 }

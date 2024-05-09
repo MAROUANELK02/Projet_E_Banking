@@ -3,6 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {AppStateService} from "./app-state.service";
 import {ApiResponse} from "../models/api-response.model";
 import {CurrentAccount} from "../models/current-account.model";
+import {Observable, tap} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -54,4 +55,50 @@ export class CurrentAccountsRepositoryService implements OnInit{
       }
     });
   }
+
+  activeAccount(accountId : number) : Observable<CurrentAccount> {
+    this.appState.currentAccountsState.status = "LOADING";
+    return this.http.put<CurrentAccount>(this.host + accountId + "/activated", {}).pipe(
+      tap({
+        next : ()=>{
+          this.appState.setCurrentAccountsState({status:"SUCCESS", errorMessage:""});
+          this.searchCurrentAccounts({});
+        },
+        error : (err)=>{
+          this.appState.setCurrentAccountsState({status:"ERROR", errorMessage:err.statusText});
+        }
+      })
+    );
+  }
+
+  suspendAccount(accountId : number) : Observable<CurrentAccount> {
+    this.appState.currentAccountsState.status = "LOADING";
+    return this.http.put<CurrentAccount>(this.host + accountId + "/suspended", {}).pipe(
+      tap({
+        next : ()=>{
+          this.appState.setCurrentAccountsState({status:"SUCCESS", errorMessage:""});
+          this.searchCurrentAccounts({});
+        },
+        error : (err)=>{
+          this.appState.setCurrentAccountsState({status:"ERROR", errorMessage:err.statusText});
+        }
+      })
+    );
+  }
+
+  closeAccount(accountId : number): Observable<CurrentAccount> {
+    this.appState.currentAccountsState.status = "LOADING";
+    return this.http.delete<CurrentAccount>(this.host + accountId, {}).pipe(
+      tap({
+        next : ()=>{
+          this.appState.setCurrentAccountsState({status:"SUCCESS", errorMessage:""});
+          this.searchCurrentAccounts({});
+        },
+        error : (err)=>{
+          this.appState.setCurrentAccountsState({status:"ERROR", errorMessage:err.statusText});
+        }
+      })
+    );
+  }
+
 }

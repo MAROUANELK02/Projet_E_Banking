@@ -6,4 +6,5 @@ export class Operation {
   description!: string;
   bankAccountDTOId!: string;
   canceled!: boolean;
+  accountId!: number;
 }

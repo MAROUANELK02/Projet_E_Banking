@@ -73,7 +73,7 @@ export class UsersComponent implements OnInit {
   }
 
   handleDelete(id : number) {
-
+    this.customersService.deleteCustomer(id);
   }
 
   goToPage(number: number) {
@@ -93,6 +93,7 @@ export class UsersComponent implements OnInit {
   //ajouter ou modifier un customer
   handleCreate() {
     let user : User = new User();
+    user.id = this.customer.id;
     user.firstName = this.form.value.firstName;
     user.lastName = this.form.value.lastName;
     user.email = this.form.value.email;
@@ -100,7 +101,7 @@ export class UsersComponent implements OnInit {
     user.ville = this.form.value.city;
     if(this.type.includes('add')) {
       this.customersService.createCustomer(user);
-    }else{
+    }else if(this.type.includes('edit')){
       this.customersService.updateCustomer(user);
     }
     this.openClose = false;

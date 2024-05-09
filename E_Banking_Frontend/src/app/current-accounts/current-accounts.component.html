@@ -19,11 +19,11 @@
             <td class='text-center'>{{ account.customerDTO.firstName }} {{account.customerDTO.lastName}}</td>
             <td class='text-center'>
               <button *ngIf="account.status.includes('ACTIVATED')" mat-flat-button color="primary"
-                (click)="changeStatus(account.id)">
+                (click)="changeStatus(account.id, account.status)">
                 Suspendre
               </button>
               <button *ngIf="account.status.includes('SUSPENDED')" mat-flat-button color="primary"
-                (click)="changeStatus(account.id)">
+                (click)="changeStatus(account.id, account.status)">
                 Activer
               </button>
             </td>
@@ -33,15 +33,16 @@
               </button>
             </td>
             <td class='text-center'>
-              <button mat-flat-button color="accent" (click)="debitAccount(account.id)">
+              <button mat-flat-button color="accent" (click)="creditAccount(account.id, account.customerDTO.firstName, account.customerDTO.lastName)">
                 Virement
               </button>
             </td>
             <td class='text-center'>
-              <button mat-flat-button color="accent" (click)="creditAccount(account.id)">
+              <button mat-flat-button color="accent" (click)="debitAccount(account.id, account.customerDTO.firstName, account.customerDTO.lastName)">
                 Retrait
               </button>
             </td>
+          </tr>
         </tbody>
       </table>
       <ul class="nav nav-pills">
@@ -56,3 +57,66 @@
     </div>
   </div>
 </div>
+
+<div *ngIf="openModal" class="fixed inset-0 flex items-center justify-center z-50">
+  <div class="bg-white rounded-lg shadow-lg p-5 relative w-1/2">
+
+    <button class="absolute top-2 right-2 text-gray-500 hover:text-gray-700 cursor-pointer" (click)="closeModal()">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+      </svg>
+    </button>
+
+    <div class="flex justify-between items-center mb-4">
+      <h2 *ngIf="type.includes('credit')">Effectuer un virement</h2>
+      <h2 *ngIf="type.includes('debit')">Effectuer un retrait</h2>
+    </div>
+    <form [formGroup]="form" (ngSubmit)="saveOperation()" >
+
+      <div class="mb-3">
+        <label class="block text-sm font-medium text-gray-700">Numéro de compte</label>
+        <input
+          formControlName="accountId"
+          type="text"
+          class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+          readonly
+        />
+      </div>
+
+      <div class="mb-3">
+        <label class="block text-sm font-medium text-gray-700">Nom</label>
+        <input
+          formControlName="lastName"
+          type="text"
+          class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+          readonly
+        />
+      </div>
+
+      <div class="mb-3">
+        <label class="block text-sm font-medium text-gray-700">Prénom</label>
+        <input
+          formControlName="firstName"
+          type="text"
+          class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+          readonly
+        />
+      </div>
+
+      <div class="mb-3">
+        <label class="block text-sm font-medium text-gray-700">Montant</label>
+        <input
+          formControlName="amount"
+          type="number"
+          placeholder="Entrez le montant"
+          class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+        />
+      </div>
+
+      <button class="mt-3 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type="submit">
+        Enregistrer
+      </button>
+    </form>
+  </div>
+</div>
+

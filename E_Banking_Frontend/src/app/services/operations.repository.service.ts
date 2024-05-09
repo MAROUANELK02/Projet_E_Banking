@@ -3,12 +3,14 @@ import {HttpClient} from "@angular/common/http";
 import {AppStateService} from "./app-state.service";
 import {ApiResponse} from "../models/api-response.model";
 import {Operation} from "../models/operation.model";
+import {Observable, tap} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
 })
 export class OperationsRepositoryService {
   host : string = "http://localhost:5000/api/operations/"
+  host1 : string = "http://localhost:5000/api/accounts/"
 
   constructor(private http : HttpClient,
               private appState : AppStateService) { }
@@ -36,6 +38,36 @@ export class OperationsRepositoryService {
       }
     });
 
+  }
+
+  debitAccount(operation : Operation): Observable<Operation> {
+    this.appState.operationsState.status = "LOADING";
+    return this.http.post<Operation>(this.host1+"debit", operation).pipe(
+      tap({
+        next : ()=>{
+          this.appState.setOperationsState({status:"SUCCESS", errorMessage:""});
+          this.searchOperations({});
+        },
+        error : (err)=>{
+          this.appState.setOperationsState({status:"ERROR", errorMessage:err.statusText});
+        }
+      })
+    );
+  }
+
+  creditAccount(operation : Operation): Observable<Operation> {
+    this.appState.operationsState.status = "LOADING";
+    return this.http.post<Operation>(this.host1+"credit", operation).pipe(
+      tap({
+        next : ()=>{
+          this.appState.setOperationsState({status:"SUCCESS", errorMessage:""});
+          this.searchOperations({});
+        },
+        error : (err)=>{
+          this.appState.setOperationsState({status:"ERROR", errorMessage:err.statusText});
+        }
+      })
+    );
   }
 
   ngOnInit(): void {

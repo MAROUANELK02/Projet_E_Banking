@@ -70,7 +70,7 @@
 
 <!-- Select account type -->
 <div *ngIf="openClose" class="fixed inset-0 flex items-center justify-center z-50">
-  <div class="bg-white rounded-lg shadow-lg p-5 relative">
+  <div class="bg-white rounded-lg shadow-lg p-5 relative w-1/2">
     <button class="absolute top-2 right-2 text-gray-500 hover:text-gray-700 cursor-pointer" (click)="handleClose()">
 
     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -125,7 +125,7 @@
 
 <!-- Choose the type of account -->
 <div *ngIf="openCloseAccountType" class="fixed inset-0 flex items-center justify-center z-50">
-  <div class="bg-white rounded-lg shadow-lg p-5 relative">
+  <div class="bg-white rounded-lg shadow-lg p-5 relative w-1/2">
     <button class="absolute top-2 right-2 text-gray-500 hover:text-gray-700 cursor-pointer" (click)="handleClose()">
 
       <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -143,7 +143,7 @@
         <mat-radio-button value="saving">Compte d'épargne</mat-radio-button>
       </mat-radio-group>
     </div>
-    <button mat-button type="submit" class="mt-3 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Enregistrer</button>
+    <button type="submit" class="mt-3 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Enregistrer</button>
   </form>
   </mat-dialog-content>
 </div>
@@ -151,7 +151,7 @@
 
 <!-- Create an account -->
 <div *ngIf="openCloseAccount" class="fixed inset-0 flex items-center justify-center z-50">
-  <div class="bg-white rounded-lg shadow-lg p-5 relative">
+  <div class="bg-white rounded-lg shadow-lg p-5 relative w-1/2">
 
     <button class="absolute top-2 right-2 text-gray-500 hover:text-gray-700 cursor-pointer" (click)="handleClose()">
     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -190,6 +190,3 @@
     </form>
   </div>
 </div>
-
-
-
