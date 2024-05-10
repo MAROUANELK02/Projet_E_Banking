@@ -37,7 +37,6 @@ export class OperationsRepositoryService {
         this.appState.setOperationsState({status:"ERROR", errorMessage:err.statusText});
       }
     });
-
   }
 
   debitAccount(operation : Operation): Observable<Operation> {
@@ -72,5 +71,25 @@ export class OperationsRepositoryService {
 
   ngOnInit(): void {
     this.searchOperations({});
+  }
+
+  getOperationDetails(id: number) {
+    return this.http.get<Operation>(this.host+id);
+  }
+
+  cancelOperation(id: number) {
+    this.appState.operationsState.status = "LOADING";
+    return this.http.delete(this.host+id).pipe(
+      tap({
+        next : ()=>{
+          this.appState.setOperationsState({status:"SUCCESS", errorMessage:""});
+          this.searchOperations({});
+        },
+        error : (err)=>{
+          this.appState.setOperationsState({status:"ERROR", errorMessage:err.statusText});
+        }
+      })
+    );
+
   }
 }
