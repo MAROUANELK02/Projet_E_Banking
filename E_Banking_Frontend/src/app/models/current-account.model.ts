@@ -6,5 +6,6 @@ export class CurrentAccount {
   status!: string;
   closed!: boolean;
   overDraft!: number;
+  type !: string;
   customerDTO! : User;
 }

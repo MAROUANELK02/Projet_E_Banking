@@ -1,0 +1,34 @@
+<div class="p-3">
+  <div class="card">
+    <div class="card-body">
+      <table class="table table-striped">
+        <thead>
+        <tr>
+          <th class='text-center'>Opération N°</th>
+          <th class='text-center'>Montant</th>
+          <th class='text-center'>Date d'opération</th>
+          <th class='text-center'>Type</th>
+          <th class='text-center'>Description</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let operation of appState.operationsState.operations">
+          <td class='text-center'>{{ operation.id }}</td>
+          <td class='text-center'>{{ operation.amount }}</td>
+          <td class='text-center'>{{ operation.operationDate | date }}</td>
+          <td class='text-center'>{{ operation.type }}</td>
+          <td class='text-center'>{{ operation.description }}</td>
+        </tbody>
+      </table>
+      <ul class="nav nav-pills">
+        <li *ngFor="let page of [].constructor(appState.operationsState.totalPages); let index=index">
+          <button (click)="goToPage(index)"
+                  [ngClass]="appState.operationsState.currentPage===(index)?'btn btn-success m-1':'btn btn-outline-success m-1'"
+                  class="">
+            {{index+1}}
+          </button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

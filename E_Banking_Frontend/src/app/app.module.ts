@@ -20,6 +20,10 @@ import {MatOption, MatSelect} from "@angular/material/select";
 import {MatDialogActions, MatDialogClose, MatDialogContent, MatDialogTitle} from "@angular/material/dialog";
 import {MatRadioButton, MatRadioGroup} from "@angular/material/radio";
 import { RegisterComponent } from './register/register.component';
+import { UserAccountsComponent } from './user-accounts/user-accounts.component';
+import { UserCurrAccOperComponent } from './user-curr-acc-oper/user-curr-acc-oper.component';
+import { UserSavAccOperComponent } from './user-sav-acc-oper/user-sav-acc-oper.component';
+import { UserDashboardComponent } from './user-dashboard/user-dashboard.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +34,11 @@ import { RegisterComponent } from './register/register.component';
     UsersComponent,
     SavingAccountsComponent,
     OperationsComponent,
-    RegisterComponent
+    RegisterComponent,
+    UserAccountsComponent,
+    UserCurrAccOperComponent,
+    UserSavAccOperComponent,
+    UserDashboardComponent
   ],
   imports: [
     BrowserModule,

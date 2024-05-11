@@ -34,6 +34,8 @@ public interface BankAccountService {
     Page<AccountOperationDTO> accountHistory(String id,int page,int size);
     BankAccountDTO suspendAccount(String id) throws BankAccountNotFoundException;
     BankAccountDTO activateAccount(String id) throws BankAccountNotFoundException;
+    CurrentBankAccountDTO getCurrentAccount(Long customerId);
+    SavingBankAccountDTO getSavingAccount(Long customerId);
 
     //Account Operations
 
@@ -41,4 +43,5 @@ public interface BankAccountService {
     Page<AccountOperationDTO> pageOperations(int page,int size);
     AccountOperationDTO getOperation(Long id) throws OperationNotFoundException;
     void deleteOperation(Long id) throws OperationNotFoundException, BankAccountNotFoundException;
+
 }

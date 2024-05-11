@@ -362,6 +362,16 @@ public class BankAccountServiceImpl implements  BankAccountService{
     }
 
     @Override
+    public CurrentBankAccountDTO getCurrentAccount(Long customerId) {
+        return dtoMapper.fromCurrentAccount(currentBankAccountRepository.findByCustomerIdAndClosedFalse(customerId));
+    }
+
+    @Override
+    public SavingBankAccountDTO getSavingAccount(Long customerId) {
+        return dtoMapper.fromSavingAccount(savingBankAccountRepository.findByCustomerIdAndClosedFalse(customerId));
+    }
+
+    @Override
     public AccountOperationDTO getOperation(Long id) throws OperationNotFoundException {
         return dtoMapper.fromAccountOperation(accountOperationRepository.findById(id)
                 .orElseThrow(()->new OperationNotFoundException("Operation not found")));

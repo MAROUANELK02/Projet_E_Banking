@@ -4,6 +4,8 @@ import {AppStateService} from "./app-state.service";
 import {ApiResponse} from "../models/api-response.model";
 import {Operation} from "../models/operation.model";
 import {Observable, tap} from "rxjs";
+import {CurrentAccount} from "../models/current-account.model";
+import {SavingAccount} from "../models/saving-account.model";
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +13,7 @@ import {Observable, tap} from "rxjs";
 export class OperationsRepositoryService {
   host : string = "http://localhost:5000/api/operations/"
   host1 : string = "http://localhost:5000/api/accounts/"
+  customersHost : string = "http://localhost:5000/api/customers/"
 
   constructor(private http : HttpClient,
               private appState : AppStateService) { }
@@ -90,6 +93,32 @@ export class OperationsRepositoryService {
         }
       })
     );
-
   }
+
+  searchCurrAccId(customerId: string){
+    return this.http.get<CurrentAccount>(this.customersHost + "currentAccount/" + customerId)
+  }
+
+  searchCurrAccOperationsHistory(accountId: string) : Observable<ApiResponse<CurrentAccount>> {
+    return this.http.get<ApiResponse<CurrentAccount>>(this.host1 + accountId + "/operations", {
+      params : {
+        page : this.appState.operationsState.currentPage,
+        size : this.appState.operationsState.pageSize
+      }
+    });
+  }
+
+  searchSavAccId(customerId: string){
+    return this.http.get<SavingAccount>(this.customersHost + "savingAccount/" + customerId);
+  }
+
+  searchSavAccOperationsHistory(accountId: string) : Observable<ApiResponse<SavingAccount>> {
+    return this.http.get<ApiResponse<SavingAccount>>(this.host1 + accountId + "/operations", {
+      params : {
+        page : this.appState.operationsState.currentPage,
+        size : this.appState.operationsState.pageSize
+      }
+    });
+  }
+
 }

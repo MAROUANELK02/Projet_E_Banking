@@ -7,4 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface SavingBankAccountRepository extends JpaRepository<SavingAccount,String> {
     Page<SavingAccount> findAllByClosedFalse(Pageable pageable);
+    SavingAccount findByCustomerIdAndClosedFalse(Long customerId);
 }

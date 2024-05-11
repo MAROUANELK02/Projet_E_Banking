@@ -1,6 +1,9 @@
 package com.ebankingproject.e_banking_backend.web;
 
+import com.ebankingproject.e_banking_backend.dtos.CurrentBankAccountDTO;
 import com.ebankingproject.e_banking_backend.dtos.CustomerDTO;
+import com.ebankingproject.e_banking_backend.dtos.SavingBankAccountDTO;
+import com.ebankingproject.e_banking_backend.entities.CurrentAccount;
 import com.ebankingproject.e_banking_backend.exceptions.CustomerNotFoundException;
 import com.ebankingproject.e_banking_backend.services.BankAccountService;
 import jakarta.validation.Valid;
@@ -22,6 +25,16 @@ public class CustomerRestController {
     @PreAuthorize("hasRole('MODERATOR') or hasRole('ADMIN')")
     public List<CustomerDTO> customers() {
        return bankAccountService.listCustomer();
+    }
+
+    @GetMapping("/currentAccount/{customerId}")
+    public CurrentBankAccountDTO getCurrentAccount(@PathVariable(name = "customerId")Long customerId) {
+        return bankAccountService.getCurrentAccount(customerId);
+    }
+
+    @GetMapping("/savingAccount/{customerId}")
+    public SavingBankAccountDTO getSavingAccount(@PathVariable(name = "customerId")Long customerId) {
+        return bankAccountService.getSavingAccount(customerId);
     }
 
     @GetMapping("/")
