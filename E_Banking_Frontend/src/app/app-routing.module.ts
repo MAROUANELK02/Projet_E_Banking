@@ -7,9 +7,12 @@ import {AuthenticationGuard} from "./guards/authentication.guard";
 import {AdminModeratorAuthorizationGuard} from "./guards/admin-moderator-authorization.guard";
 import {SavingAccountsComponent} from "./saving-accounts/saving-accounts.component";
 import {OperationsComponent} from "./operations/operations.component";
+import {RegisterComponent} from "./register/register.component";
 
 const routes: Routes = [
   {path: "login", component: LoginComponent},
+  {path: "register", component: RegisterComponent},
+  {path: "forgot-password", component: RegisterComponent},
   {path: "accounts/currentAccounts", component: CurrentAccountsComponent, canActivate : [AuthenticationGuard, AdminModeratorAuthorizationGuard]},
   {path: "accounts/savingAccounts", component: SavingAccountsComponent, canActivate : [AuthenticationGuard, AdminModeratorAuthorizationGuard] },
   {path: "operations", component: OperationsComponent, canActivate: [AuthenticationGuard, AdminModeratorAuthorizationGuard] },

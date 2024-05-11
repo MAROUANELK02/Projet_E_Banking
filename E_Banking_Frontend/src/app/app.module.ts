@@ -19,6 +19,7 @@ import {MatFormField, MatLabel} from "@angular/material/form-field";
 import {MatOption, MatSelect} from "@angular/material/select";
 import {MatDialogActions, MatDialogClose, MatDialogContent, MatDialogTitle} from "@angular/material/dialog";
 import {MatRadioButton, MatRadioGroup} from "@angular/material/radio";
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import {MatRadioButton, MatRadioGroup} from "@angular/material/radio";
     CurrentAccountsComponent,
     UsersComponent,
     SavingAccountsComponent,
-    OperationsComponent
+    OperationsComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,

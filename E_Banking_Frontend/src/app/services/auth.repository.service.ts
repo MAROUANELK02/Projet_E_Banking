@@ -1,12 +1,14 @@
 import {Injectable, OnInit} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {AppStateService} from "./app-state.service";
+import {Observable} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthRepositoryService {
   host:string ="http://localhost:5000/api/auth/signin";
+  registerHost:string ="http://localhost:5000/api/register";
 
   constructor(private http : HttpClient, private appState : AppStateService) { }
 
@@ -43,5 +45,13 @@ export class AuthRepositoryService {
       roles :[],
       token :"",
     })
+  }
+
+  checkEmail(email : string) : Observable<any> {
+    return this.http.post(this.registerHost+"/sendEmail", {email:email});
+  }
+
+  register(email : string, password : string, confirmPassword: string) : Observable<any> {
+    return this.http.put(this.registerHost+"/changePassword", {email:email, password:password, confirmedPassword:confirmPassword});
   }
 }
