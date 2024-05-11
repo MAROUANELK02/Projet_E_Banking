@@ -1,5 +1,5 @@
 <nav class="navbar m-2 p-2">
-  <a routerLink="/login" class="navbar-brand">
+  <a class="navbar-brand">
     E-banking
   </a>
   <ul class="nav nav-pills me-auto my-2 my-lg-0"
@@ -36,7 +36,7 @@
 
   <ul class="nav nav-pills me-auto my-2 my-lg-0" *ngIf="appState.authState.roles.includes('ROLE_USER')">
     <li class="nav-item">
-      <a routerLink="/user/accounts" class="nav-link">
+      <a routerLink="/user/dashboard" class="nav-link">
         Mes comptes
       </a>
     </li>
@@ -66,5 +66,4 @@
       </button>
     </li>
   </ul>
-
 </nav>
