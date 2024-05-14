@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import {CurrentAccount} from "../models/current-account.model";
+import {SavingAccount} from "../models/saving-account.model";
 
 @Injectable({
   providedIn: 'root'
@@ -35,6 +37,17 @@ export class AppStateService {
     errorMessage :""
   }
 
+  public currentAccountDetails !: CurrentAccount;
+  public savingAccountDetails !: SavingAccount;
+
+  public setCurrentAccountDetails(currentAccountDetails: CurrentAccount) {
+    this.currentAccountDetails = currentAccountDetails;
+  }
+
+  public setSavingAccountDetails(savingAccountDetails: SavingAccount) {
+    this.savingAccountDetails = savingAccountDetails;
+  }
+
   public savingAccountsState :any={
     savingAccounts:[],
     totalPages:0,
@@ -51,6 +64,15 @@ export class AppStateService {
     pageSize: 8,
     status :"",
     errorMessage :""
+  }
+
+  public userAccounts : any={
+    currentAccount :CurrentAccount,
+    savingAccount :SavingAccount
+  }
+
+  public setUserAccounts(state:any){
+    this.userAccounts={...this.userAccounts, ...state};
   }
 
   public getUserByUserId(userId : number){

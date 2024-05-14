@@ -19,4 +19,4 @@ export class AuthenticationGuard {
       return false;
     }
   }
-};
+}

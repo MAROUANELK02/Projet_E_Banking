@@ -3,6 +3,9 @@ import {HttpClient} from "@angular/common/http";
 import {AppStateService} from "./app-state.service";
 import {ApiResponse} from "../models/api-response.model";
 import {User} from "../models/user.model";
+import {CurrentAccount} from "../models/current-account.model";
+import {SavingAccount} from "../models/saving-account.model";
+import {Observable} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -42,6 +45,14 @@ export class CustomersRepositoryService implements OnInit{
 
   ngOnInit(): void {
     this.searchCustomers({});
+  }
+
+  getCurrentAccountByCustomerId(customerId : number) : Observable<CurrentAccount> {
+    return this.http.get<CurrentAccount>(this.host+"currentAccount/"+customerId);
+  }
+
+  getSavingAccountByCustomerId(customerId : number):Observable<SavingAccount> {
+    return this.http.get<SavingAccount>(this.host+"savingAccount/"+customerId);
   }
 
   createCustomer(user : User) {

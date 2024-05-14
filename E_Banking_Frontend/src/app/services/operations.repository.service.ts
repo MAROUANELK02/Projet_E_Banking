@@ -18,6 +18,26 @@ export class OperationsRepositoryService {
   constructor(private http : HttpClient,
               private appState : AppStateService) { }
 
+  transaction(accountIdSource:string, accountIdDestionation:string, amount:number) {
+    this.appState.operationsState.status = "LOADING";
+    return this.http.post(this.host+"transaction", {}, {
+      params: {
+        ribSource: accountIdSource,
+        ribDestination: accountIdDestionation,
+        amount: amount
+      }
+    }).pipe(
+      tap({
+        next : ()=>{
+          this.appState.setOperationsState({status:"SUCCESS", errorMessage:""});
+        },
+        error : (err)=>{
+          this.appState.setOperationsState({status:"ERROR", errorMessage:err.statusText});
+        }
+      })
+    );
+  }
+
   searchOperations({
                     currentPage = this.appState.operationsState.currentPage,
                     size = this.appState.operationsState.pageSize

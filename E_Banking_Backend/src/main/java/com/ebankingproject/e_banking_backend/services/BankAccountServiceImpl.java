@@ -266,17 +266,21 @@ public class BankAccountServiceImpl implements  BankAccountService{
 
     @Override
     public void transaction(String accountIdSource, String accountIdDestination, double amount) throws BankAccountNotFoundException, CustomerNotFoundException {
-        if(amount >= 100) {
-            debit(accountIdSource, amount, "Virement envoyé à " +
-                    getCustomer(getBankAccount(accountIdDestination).getCustomerDTO().getId()).getFirstName()
-                    + " " +
-                    getCustomer(getBankAccount(accountIdDestination).getCustomerDTO().getId()).getLastName());
-            credit(accountIdDestination, amount, "Virement reçu de " +
-                    getCustomer(getBankAccount(accountIdSource).getCustomerDTO().getId()).getFirstName()
-                    + " " +
-                    getCustomer(getBankAccount(accountIdSource).getCustomerDTO().getId()).getLastName());
-        }else{
-            throw new RuntimeException("Le montant doit être supérieur ou égal à 100DHS !");
+        try {
+            CustomerDTO customerSource = getCustomer(getBankAccount(accountIdSource).getCustomerDTO().getId());
+            CustomerDTO customerDestination = getCustomer(getBankAccount(accountIdDestination).getCustomerDTO().getId());
+            if(amount >= 100) {
+                debit(accountIdSource, amount, "Virement envoyé à " +
+                        customerSource.getFirstName()
+                        + " " +
+                        customerSource.getLastName());
+                credit(accountIdDestination, amount, "Virement reçu de " +
+                        customerDestination.getFirstName()
+                        + " " +
+                        customerDestination.getLastName());
+            }
+        }catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
         }
     }
 
@@ -363,12 +367,14 @@ public class BankAccountServiceImpl implements  BankAccountService{
 
     @Override
     public CurrentBankAccountDTO getCurrentAccount(Long customerId) {
-        return dtoMapper.fromCurrentAccount(currentBankAccountRepository.findByCustomerIdAndClosedFalse(customerId));
+        Customer customer = customerRepository.findByUserId(customerId);
+        return dtoMapper.fromCurrentAccount(currentBankAccountRepository.findByCustomerIdAndClosedFalse(customer.getId()));
     }
 
     @Override
     public SavingBankAccountDTO getSavingAccount(Long customerId) {
-        return dtoMapper.fromSavingAccount(savingBankAccountRepository.findByCustomerIdAndClosedFalse(customerId));
+        Customer customer = customerRepository.findByUserId(customerId);
+        return dtoMapper.fromSavingAccount(savingBankAccountRepository.findByCustomerIdAndClosedFalse(customer.getId()));
     }
 
     @Override

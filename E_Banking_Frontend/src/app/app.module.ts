@@ -24,6 +24,7 @@ import { UserAccountsComponent } from './user-accounts/user-accounts.component';
 import { UserCurrAccOperComponent } from './user-curr-acc-oper/user-curr-acc-oper.component';
 import { UserSavAccOperComponent } from './user-sav-acc-oper/user-sav-acc-oper.component';
 import { UserDashboardComponent } from './user-dashboard/user-dashboard.component';
+import {NgOptimizedImage} from "@angular/common";
 
 @NgModule({
   declarations: [
@@ -55,7 +56,8 @@ import { UserDashboardComponent } from './user-dashboard/user-dashboard.componen
     MatDialogTitle,
     MatDialogContent,
     MatRadioGroup,
-    MatRadioButton
+    MatRadioButton,
+    NgOptimizedImage
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: HttpAppInterceptor, multi: true},

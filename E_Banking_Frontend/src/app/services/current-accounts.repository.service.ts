@@ -36,7 +36,6 @@ export class CurrentAccountsRepositoryService implements OnInit{
         this.appState.setCurrentAccountsState({status:"ERROR", errorMessage:err.statusText});
       }
     });
-
   }
 
   ngOnInit(): void {
