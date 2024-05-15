@@ -25,6 +25,7 @@ import { UserSavAccOperComponent } from './user-sav-acc-oper/user-sav-acc-oper.c
 import { UserDashboardComponent } from './user-dashboard/user-dashboard.component';
 import {NgOptimizedImage} from "@angular/common";
 import { ModeratorsComponent } from './moderators/moderators.component';
+import { NotAuthorizedComponent } from './not-authorized/not-authorized.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { ModeratorsComponent } from './moderators/moderators.component';
     UserCurrAccOperComponent,
     UserSavAccOperComponent,
     UserDashboardComponent,
-    ModeratorsComponent
+    ModeratorsComponent,
+    NotAuthorizedComponent
   ],
   imports: [
     BrowserModule,

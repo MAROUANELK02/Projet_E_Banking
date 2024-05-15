@@ -14,6 +14,7 @@ import {UserSavAccOperComponent} from "./user-sav-acc-oper/user-sav-acc-oper.com
 import {UserDashboardComponent} from "./user-dashboard/user-dashboard.component";
 import {ModeratorsComponent} from "./moderators/moderators.component";
 import {AdminAuthorizationGuard} from "./guards/admin-authorization.guard";
+import {NotAuthorizedComponent} from "./not-authorized/not-authorized.component";
 
 const routes: Routes = [
   {path: "login", component: LoginComponent},
@@ -28,6 +29,7 @@ const routes: Routes = [
   {path: "user/operations/savingAccount", canActivate: [AuthenticationGuard, UserAuthorizationGuard], component: UserSavAccOperComponent},
   {path: "user/dashboard", canActivate: [AuthenticationGuard, UserAuthorizationGuard], component: UserDashboardComponent},
   {path: "", redirectTo: "/login", pathMatch: "full"},
+  {path: "notAuthorized", component: NotAuthorizedComponent}
 ];
 
 @NgModule({
