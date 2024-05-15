@@ -17,13 +17,13 @@ import java.util.List;
 public class AdminRestControllers {
     private AccountService accountService;
 
-    @PostMapping("/")
+    @PostMapping("/addModerator")
     @PreAuthorize("hasRole('ADMIN')")
     public User saveModerator(@RequestBody UserDTO userDTO) {
          return accountService.addNewModerator(userDTO.getUsername(), userDTO.getEmail(), userDTO.getPassword());
     }
 
-    @GetMapping("/")
+    @GetMapping("/all")
     @PreAuthorize("hasRole('ADMIN')")
     public Page<UserDTO> getModerators(@RequestParam(name = "page",defaultValue = "0") int page,
                                        @RequestParam(name = "size",defaultValue = "6") int size) {

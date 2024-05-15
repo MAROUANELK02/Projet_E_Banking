@@ -14,6 +14,8 @@ export class UserDashboardComponent implements OnInit {
   openCloseTransfer : boolean = false;
   accountForm !: FormGroup;
   type !: string;
+  hasSavingAccount !: boolean;
+  hasCurrentAccount !: boolean;
 
   constructor(public appState : AppStateService,
               private customerService : CustomersRepositoryService,
@@ -62,6 +64,9 @@ export class UserDashboardComponent implements OnInit {
       firstName: this.fb.control(""),
       lastName: this.fb.control(""),
     });
+    this.searchCurrentAccount();
+    this.searchSavingAccount();
+    this.accountForm.reset();
   }
 
   private searchCurrentAccount() {
@@ -75,6 +80,9 @@ export class UserDashboardComponent implements OnInit {
         firstName: this.appState.currentAccountDetails.customerDTO.firstName,
         lastName: this.appState.currentAccountDetails.customerDTO.lastName
       });
+      if(this.appState.currentAccountDetails != null) {
+        this.hasCurrentAccount = true;
+      }
     });
   }
 
@@ -89,6 +97,9 @@ export class UserDashboardComponent implements OnInit {
         firstName: this.appState.savingAccountDetails.customerDTO.firstName,
         lastName: this.appState.savingAccountDetails.customerDTO.lastName
       });
+      if(this.appState.savingAccountDetails != null) {
+        this.hasSavingAccount = true;
+      }
     });
   }
 

@@ -37,6 +37,19 @@ export class AppStateService {
     errorMessage :""
   }
 
+  public moderatorsState :any={
+    moderators:[],
+    totalPages:0,
+    currentPage : 0,
+    pageSize: 4,
+    status :"",
+    errorMessage :""
+  }
+
+  public setModeratorsState(state:any){
+    this.moderatorsState={...this.moderatorsState, ...state};
+  }
+
   public currentAccountDetails !: CurrentAccount;
   public savingAccountDetails !: SavingAccount;
 

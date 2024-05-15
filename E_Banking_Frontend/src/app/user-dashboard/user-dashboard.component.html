@@ -1,7 +1,7 @@
 <div class="flex h-screen">
 
-  <!-- Card of Saving account -->
-  <div class="flex items-center justify-center w-1/2">
+  <!-- Card of Current account -->
+  <div *ngIf="hasCurrentAccount" class="flex items-center justify-center w-1/2">
     <div class="max-w-xs mx-auto bg-white rounded-xl shadow-md overflow-hidden" style="width: 18rem;">
       <img class="w-full h-48" src="assets/current.jpg" alt="Card image cap">
       <div class="px-4 py-2">
@@ -15,7 +15,7 @@
   </div>
 
   <!-- Card of Saving account -->
-  <div class="flex items-center justify-center w-1/2">
+  <div *ngIf="hasSavingAccount" class="flex items-center justify-center w-1/2">
     <div class="max-w-xs mx-auto bg-white rounded-xl shadow-md overflow-hidden" style="width: 18rem;">
       <img class="w-full h-48" src="assets/saving.png" alt="Card image cap">
       <div class="px-4 py-2">

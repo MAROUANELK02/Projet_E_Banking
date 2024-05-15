@@ -12,6 +12,8 @@ import {UserCurrAccOperComponent} from "./user-curr-acc-oper/user-curr-acc-oper.
 import {UserAuthorizationGuard} from "./guards/user-authorization.guard";
 import {UserSavAccOperComponent} from "./user-sav-acc-oper/user-sav-acc-oper.component";
 import {UserDashboardComponent} from "./user-dashboard/user-dashboard.component";
+import {ModeratorsComponent} from "./moderators/moderators.component";
+import {AdminAuthorizationGuard} from "./guards/admin-authorization.guard";
 
 const routes: Routes = [
   {path: "login", component: LoginComponent},
@@ -20,6 +22,7 @@ const routes: Routes = [
   {path: "accounts/currentAccounts", component: CurrentAccountsComponent, canActivate : [AuthenticationGuard, AdminModeratorAuthorizationGuard]},
   {path: "accounts/savingAccounts", component: SavingAccountsComponent, canActivate : [AuthenticationGuard, AdminModeratorAuthorizationGuard] },
   {path: "operations", component: OperationsComponent, canActivate: [AuthenticationGuard, AdminModeratorAuthorizationGuard] },
+  {path: "moderators", component: ModeratorsComponent, canActivate: [AuthenticationGuard, AdminAuthorizationGuard] },
   {path: "users", canActivate: [AuthenticationGuard, AdminModeratorAuthorizationGuard] , component: UsersComponent},
   {path: "user/operations/currentAccount", canActivate: [AuthenticationGuard, UserAuthorizationGuard], component: UserCurrAccOperComponent},
   {path: "user/operations/savingAccount", canActivate: [AuthenticationGuard, UserAuthorizationGuard], component: UserSavAccOperComponent},
