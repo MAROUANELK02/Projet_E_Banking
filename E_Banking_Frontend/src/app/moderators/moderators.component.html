@@ -14,6 +14,9 @@
           <th class='text-center'>N°</th>
           <th class='text-center'>Username</th>
           <th class='text-center'>Email</th>
+          <th scope="col" class="text-center">
+            Actions
+          </th>
         </tr>
         </thead>
         <tbody>
@@ -21,6 +24,11 @@
           <td class='text-center'>{{ moderator.id }}</td>
           <td class='text-center'>{{ moderator.username }}</td>
           <td class='text-center'>{{ moderator.email }}</td>
+          <td class="text-center">
+            <button class="text-danger" (click)="deleteModerator(moderator.id)">
+              &#10006;
+            </button>
+          </td>
         </tbody>
       </table>
       <ul class="nav nav-pills">

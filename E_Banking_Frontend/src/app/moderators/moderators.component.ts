@@ -56,4 +56,8 @@ export class ModeratorsComponent implements OnInit{
   private searchModerators() {
     this.moderatorService.searchModerators({});
   }
+
+  deleteModerator(id : number) {
+    this.moderatorService.deleteModerator(id);
+  }
 }

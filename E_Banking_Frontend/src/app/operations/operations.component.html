@@ -25,7 +25,7 @@
               Détails
             </button>
           </td>
-          <td class='text-center' *ngIf="operation.canceled === false">
+          <td class='text-center' *ngIf="this.appState.authState.roles.includes('ROLE_ADMIN')">
             <button mat-flat-button color="warn" (click)="cancelOperation(operation.id)">
               Annuler
             </button>
